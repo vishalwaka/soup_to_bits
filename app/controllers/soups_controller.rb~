@@ -1,0 +1,38 @@
+class SoupsController < ApplicationController
+  before_action :fetch_soup,only: [:new,:show,:update,:destroy,:toggle_featured]
+  def show
+
+
+   respond_to do |format|
+    format.html
+    format.json {render json: @soup}
+   end
+  end
+  def index
+   @soups=Soup.all
+   respond_to do |format|
+     format.html
+     format.json {render json: @soups}
+   end
+  end
+  def new
+  end
+  def edit
+  end
+
+  def update
+  end
+
+  def destroy
+  end
+  def toggle_featured
+   flash[:notice]="Successfully changed the featured flag!"
+   @soup.toggle!(:featured)
+   redirect_to @soup
+  end
+private
+  def fetch_soup
+   @soup=Soup.find(params[:id])
+  end
+
+end
